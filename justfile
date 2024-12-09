@@ -69,7 +69,7 @@ deploy *args:
 	just test
 	cargo lambda build --release
 	cargo lambda deploy \
-	--binary-name bevyhub-api \
+	--binary-name bevyhub_api \
 	--iam-role arn:aws:iam::898915787211:role/bevyhub-lambda \
 	--enable-function-url \
 	--region {{region}} \
@@ -117,7 +117,7 @@ s3-set-cors:
 lambda-env:
 	echo $MONGODB_CLIENT
 	aws lambda update-function-configuration \
-	--function-name bevyhub-api \
+	--function-name bevyhub_api \
 	--region {{region}}
 	--environment "Variables={MONGODB_CLIENT=$MONGODB_CLIENT}" \
 
@@ -126,6 +126,8 @@ pws *args:
 
 curl *args:
 	cargo run --example curl {{args}}
+curl-prod *args:
+	API_ENV=prod just curl
 
 
 populate *args:
@@ -134,9 +136,9 @@ populate *args:
 	../bevyhub \
 	../bevyhub/crates/bevyhub_template \
 	../bevyhub/crates/bevyhub_net \
-	../beet \
-	../../me-temp/mrchantey_bevyhub_hello_world \
-	../sewb \
+# ../beet \
+# ../../me-temp/mrchantey_bevyhub_hello_world \
+# ../sewb \
 # ../beet/crates/beet_flow/ \
 # ../beet/crates/beet_ml/ \
 # ../beet/crates/beet_spatial/ \

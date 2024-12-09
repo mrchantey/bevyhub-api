@@ -7,17 +7,17 @@ opt-level = 1
 opt-level = 3
 
 [workspace.package]
-version = "0.0.4-rc.2"
+version = "0.0.1-rc.1"
 edition = "2021"
 publish = false
 
 [workspace]
-members = ["cli"]
+members = [".", "cli"]
 
 [workspace.dependencies]
 ## internal
-bevyhub_api = { path = "./", version = "0.0.4-rc.2" }
-sweet = "0.2.0-rc.4"
+bevyhub_api = { path = "./", version = "0.0.1-rc.1" }
+sweet = "0.2.0"
 # sweet.path = "../sweet"
 semver = { version = "1.0", features = ["serde"] }
 

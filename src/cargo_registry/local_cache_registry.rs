@@ -55,21 +55,19 @@ mod test {
 	use anyhow::Result;
 	use semver::Version;
 	use sweet::*;
-
+	
 	#[tokio::test]
-	#[ignore = "hits crates.io"]
 	async fn versions() -> Result<()> {
 		let registry = LocalCacheRegistry::default();
 		let versions = registry.versions("bevyhub_template").await?;
-		expect(versions[0].to_string()).to_be("0.0.1".to_string())?;
-		expect(versions[1].to_string()).to_be("0.0.2".to_string())?;
+		expect(versions[0].to_string()).to_be("0.0.1-rc.1".to_string())?;
 		Ok(())
 	}
 	#[tokio::test]
 	async fn crate_index() -> Result<()> {
 		let registry = LocalCacheRegistry::default();
 		let index = registry.crate_index("bevyhub_template").await?;
-		expect(index.len()).to_be_greater_or_equal_to(2)?;
+		expect(index.len()).to_be_greater_or_equal_to(1)?;
 		Ok(())
 	}
 	#[tokio::test]
@@ -78,7 +76,7 @@ mod test {
 		let tarball = registry
 			.tarball(&CrateId::new(
 				"bevyhub_template",
-				Version::parse("0.0.2").unwrap(),
+				Version::parse("0.0.1-rc.1").unwrap(),
 			))
 			.await?;
 		expect(tarball.len()).to_be_greater_than(0)?;

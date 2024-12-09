@@ -5,7 +5,7 @@ use serde_json::Value;
 
 const LOCAL_HOST: &str = "http://localhost:3000";
 const REMOTE_HOST: &str =
-	"https://7sugmdr7lijxtdy4rtyauenuda0abnkl.lambda-url.us-west-2.on.aws";
+	"https://nxlsmchxgcv56pwddukyuj4dvi0zhyap.lambda-url.us-west-2.on.aws";
 
 
 async fn assert_status_and_json(
@@ -75,13 +75,7 @@ async fn main() -> Result<()> {
 	)
 	.await?;
 	assert_status_and_json(
-		"/crates/bevyhub_template/versions/0.0.1",
-		200,
-		None,
-	)
-	.await?;
-	assert_status_and_json(
-		"/crates/bevyhub_template/versions/0.0.6-rc.2",
+		"/crates/bevyhub_template/versions/0.0.1-rc.1",
 		200,
 		None,
 	)
@@ -93,7 +87,7 @@ async fn main() -> Result<()> {
 	)
 	.await?;
 	assert_status_and_json(
-		"/crates/bevyhub_template/versions/0.0.6-rc.2/scenes",
+		"/crates/bevyhub_template/versions/0.0.1-rc.1/scenes",
 		200,
 		None,
 	)
@@ -105,7 +99,7 @@ async fn main() -> Result<()> {
 	)
 	.await?;
 	assert_status_and_json(
-		"/crates/bevyhub/versions/0.0.6-rc.6/unpkg/scenes/app.json",
+		"/crates/bevyhub/versions/0.0.1-rc.1/unpkg/scenes/app.json",
 		200,
 		None,
 	)
