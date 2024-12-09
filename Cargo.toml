@@ -1,0 +1,85 @@
+#💡 Enable a small amount of optimization in debug mode
+[profile.dev]
+opt-level = 1
+
+#💡 Enable high optimizations for dependencies (incl. Bevy), but not for our code:
+[profile.dev.package."*"]
+opt-level = 3
+
+[workspace.package]
+version = "0.0.4-rc.2"
+edition = "2021"
+publish = false
+
+[workspace]
+members = ["cli"]
+
+[workspace.dependencies]
+## internal
+bevyhub_api = { path = "./", version = "0.0.4-rc.2" }
+sweet = "0.2.0-rc.4"
+# sweet.path = "../sweet"
+semver = { version = "1.0", features = ["serde"] }
+
+## external
+anyhow = "1.0.86"
+toml = "0.8"
+cargo-manifest = "0.15"
+
+futures = "0.3"
+futures-util = "0.3"
+tokio = { version = "1", features = ["full"] }
+
+[package]
+name = "bevyhub_api"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+
+[features]
+default = []
+
+[dependencies]
+anyhow.workspace = true
+
+futures-util.workspace = true
+tokio.workspace = true
+futures.workspace = true
+async-trait = "0.1.81"
+
+cargo-manifest.workspace = true
+semver.workspace = true
+toml.workspace = true
+
+aws-config = "1.5.4"
+aws-sdk-s3 = "1.41.0"
+lambda_http = "0.12"
+mongodb = "3.0.1"
+
+extend = "1.2"
+
+rand = "0.8.5"
+
+axum = { version = "0.7", features = ["macros"] }
+flate2 = "1.0.30"
+reqwest = "0.12"
+tower = "0.4"
+tower-http = { version = "0.5", features = ["trace"] }
+# required to fix openssl build error
+openssl = { version = "0.10", features = ["vendored"] }
+tracing = "0.1"
+# tracing-subscriber = "0.3"
+
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tar = "0.4"
+ts-rs = { version = "9.0.1", features = ["semver-impl"] }
+
+[dev-dependencies]
+sweet.workspace = true
+# in prod aws has its own
+
+# [[test]]
+# name = "bevyhub_api"
+# path = "src/test.rs"
+# harness = false

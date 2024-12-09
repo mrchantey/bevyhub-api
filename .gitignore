@@ -1,0 +1,6 @@
+.env
+/secret
+/target
+/secret
+/bindings
+rustc-ice-*

@@ -1,0 +1,40 @@
+name: 🔎 Test Crates
+on:
+  push:
+    branches: [main,dev]
+    paths: ['**','!**/*.md']
+  pull_request:
+    branches: main
+    paths: ['**','!**/*.md']
+env:
+  CARGO_TERM_COLOR: always
+jobs:
+  build_and_test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    steps:
+    - name: 📂 Checkout
+      uses: actions/checkout@v4
+    - name: 📂 Cache
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cargo/bin/
+          ~/.cargo/registry/index/
+          ~/.cargo/registry/cache/
+          ~/.cargo/git/db/
+          target/
+        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+    - name: 🔨 Install Bevy Dependencies
+      if: runner.os == 'Linux'
+      run: sudo apt-get update && sudo apt-get install g++ pkg-config libx11-dev libasound2-dev libudev-dev mold
+    - name: 🔨 Install Just
+      uses: extractions/setup-just@v1
+    - name: 🔨 Install Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: nightly
+        override: true
+        default: true
+    - name: 🔎 Test
+      run: just test
